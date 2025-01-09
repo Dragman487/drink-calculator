@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Davidwache - Drink Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #0F0E0E;
+      color: #FFFFFF;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+      font-weight: 700;
+      color: #FF4081;
+    }
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    button {
+      font-size: 16px;
+      margin: 10px;
+      padding: 15px;
+      width: calc(50% - 20px);
+      background-color: #1F1A1D;
+      color: #FFFFFF;
+      border: 2px solid #FF4081;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s, transform 0.3s;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    button:hover {
+      background-color: #FF4081;
+      transform: scale(1.05);
+    }
+    button:active {
+      box-shadow: none;
+      transform: scale(0.95);
+    }
+    #total {
+      font-size: 48px;
+      font-weight: 700;
+      margin-top: 30px;
+      text-align: center;
+      color: #FF80AB;
+    }
+    #reset {
+      background-color: #FF80AB;
+      color: #1F1A1D;
+      width: 100%;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #reset i {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Davidwache</h1>
+  <div class="button-container">
+    <button onclick="addDrink('Berliner Luft', 2)">Berliner Luft<br>2€</button>
+    <button onclick="addDrink('Long Island', 6.5)">Long Island<br>6,50€</button>
+    <button onclick="addDrink('Long Drinks', 7)">Long Drinks<br>7€</button>
+    <button onclick="addDrink('Hausschnaps', 1.5)">Hausschnaps<br>1,50€</button>
+    <button onclick="addDrink('Sourz', 2)">Sourz<br>2€</button>
+    <button onclick="addDrink('Tequila', 2.9)">Tequila<br>2,90€</button>
+    <button onclick="addDrink('Kleines Bier', 3.6)">Kleines Bier<br>3,60€</button>
+    <button onclick="addDrink('Großes Bier', 5.6)">Großes Bier<br>5,60€</button>
+    <button onclick="addDrink('Kleines Corona', 4.2)">Kleines Corona<br>4,20€</button>
+    <button onclick="addDrink('Großes Corona', 6)">Großes Corona<br>6€</button>
+    <button onclick="addDrink('Rakete', 4.1)">Rakete<br>4,10€</button>
+  </div>
+  
+  <div id="total">0,00€</div>
+  
+  <button id="reset" onclick="resetTotal()">
+    <i class="material-icons">refresh</i>
+    Reset
+  </button>
+
+  <script>
+    let total = 0;
+
+    function addDrink(name, price) {
+      total += price;
+      document.getElementById('total').innerHTML = `${total.toFixed(2)}€`;
+    }
+
+    function resetTotal() {
+      total = 0;
+      document.getElementById('total').innerHTML = `${total.toFixed(2)}€`;
+    }
+  </script>
+</body>
+</html>
