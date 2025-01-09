@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Davidwache - Drink Calculator</title>
+  <title>Davidwache</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -67,6 +67,14 @@
     #reset i {
       margin-right: 10px;
     }
+    #selectedDrinks {
+      margin-top: 20px;
+      text-align: left;
+      color: #FF80AB;
+    }
+    #selectedDrinks p {
+      margin: 5px 0;
+    }
   </style>
 </head>
 <body>
@@ -92,17 +100,42 @@
     Reset
   </button>
 
+  <div id="selectedDrinks"></div>
+
   <script>
     let total = 0;
+    let selectedDrinks = {};
 
     function addDrink(name, price) {
       total += price;
       document.getElementById('total').innerHTML = `${total.toFixed(2)}€`;
+
+      if (selectedDrinks[name]) {
+        selectedDrinks[name].count++;
+      } else {
+        selectedDrinks[name] = { count: 1, price: price };
+      }
+
+      updateSelectedDrinks();
     }
 
     function resetTotal() {
       total = 0;
       document.getElementById('total').innerHTML = `${total.toFixed(2)}€`;
+      selectedDrinks = {};
+      updateSelectedDrinks();
+    }
+
+    function updateSelectedDrinks() {
+      const selectedDrinksDiv = document.getElementById('selectedDrinks');
+      selectedDrinksDiv.innerHTML = '';
+
+      for (const [name, { count, price }] of Object.entries(selectedDrinks)) {
+        const drinkTotal = (count * price).toFixed(2);
+        const paragraph = document.createElement('p');
+        paragraph.textContent = `${name} x ${count}: ${drinkTotal}€`;
+        selectedDrinksDiv.appendChild(paragraph);
+      }
     }
   </script>
 </body>
