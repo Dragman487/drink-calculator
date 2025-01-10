@@ -4,8 +4,46 @@ let drinkHistory = [];
 const btnContainer = document.getElementById("buttonContainer");
 const selectedDrinksContainer = document.getElementById("selectedDrinks");
 
+const availableDrinks = [
+    { id: 'LongIsland', name: 'Long Island', price: 6.5 },
+    { id: 'LongDrink', name: 'Long Drink',   price: 7 },
+    { id: 'CubaLibre', name: 'Cuba Libre',   price: 7.5 },
+    { id: 'Hausschnaps',name: 'Hausschnaps',  price: 1.5 },
+    { id: 'Mexikaner',  name: 'Mexikaner',    price: 2 },
+    { id: 'Sourz',      name: 'Sourz',        price: 2.5 },
+    { id: 'Tequilla',   name: 'Tequilla',     price: 2.9 },
+    { id: 'klBier',   name: 'kl. Bier',     price: 3.6 },
+    { id: 'grBier',   name: 'gr. Bier',     price: 5.6 },
+    { id: 'klCorona', name: 'kl. Corona',   price: 4.2 },
+    { id: 'grCorona', name: 'gr. Corona',   price: 6 },
+    { id: 'Rakete',     name: 'Rakete',       price: 4.1 }
+  ];
+
 document.getElementById("openDrinksBtn").disabled = true;
-function addDrink(name, price) {
+
+buildDrinkButtons();
+
+function buildDrinkButtons() {
+    const buttonContainer = document.getElementById("buttonContainer")
+    for(let drink of availableDrinks) {
+        const button = document.createElement("button");
+        button.addEventListener('click', () => {addDrink(drink.id, drink.name, drink.price)} )
+        button.id = drink.id
+
+        const name = document.createElement("p")
+        name.classList.add("name")
+        name.innerHTML = drink.name
+
+        const price = document.createElement("p")
+        price.innerHTML = drink.price +  "€"
+
+        button.appendChild(name);
+        button.appendChild(price);
+        buttonContainer.appendChild(button);
+    }
+
+}
+function addDrink(drinkId, name, price) {
   total += price;
   document.getElementById("total").innerHTML = `${total.toFixed(2)}€`;
 
@@ -15,7 +53,9 @@ function addDrink(name, price) {
     selectedDrinks[name] = { count: 1, price: price };
   }
 
-  drinkHistory.push({ name, price });
+  setNewButtonName(drinkId, name);
+
+  drinkHistory.push({id: drinkId, name, price });
   updateSelectedDrinks();
 }
 
@@ -31,7 +71,14 @@ function undoLastDrink() {
     }
 
     updateSelectedDrinks();
+    setNewButtonName(lastDrink.id, lastDrink.name);
   }
+}
+
+function setNewButtonName(drinkId, name) {
+  console.log("DRINK ID", drinkId);
+  const nameTag = document.getElementById(drinkId).getElementsByClassName("name")[0]
+  nameTag.innerHTML = name +  (selectedDrinks[name]?.count ? " (" + selectedDrinks[name].count + ")" : "");
 }
 
 function resetTotal() {
@@ -68,10 +115,8 @@ function updateSelectedDrinks() {
   }
 
   if (!Object.entries(selectedDrinks).length) {
-    console.log("DISABLED");
     document.getElementById("openDrinksBtn").disabled = true;
   } else {
-    console.log("ENABLE");
     document.getElementById("openDrinksBtn").disabled = false;
   }
 }
