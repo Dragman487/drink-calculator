@@ -61,6 +61,7 @@ function addDrink(drinkId, name, price) {
 
 function undoLastDrink() {
   if (drinkHistory.length > 0) {
+    console.log("UNDO")
     const lastDrink = drinkHistory.pop();
     total -= lastDrink.price;
     document.getElementById("total").innerHTML = `${total.toFixed(2)}€`;
@@ -76,10 +77,10 @@ function undoLastDrink() {
 }
 
 function setNewButtonName(drinkId, name) {
-  console.log("DRINK ID", drinkId);
   const buttonElement = document.getElementById(drinkId)
-  const oldBadgeElement = document.getElementById('badgeAmount' + "drinkId")
+  const oldBadgeElement = document.getElementById('badgeAmount' + drinkId)
 
+  console.log(oldBadgeElement);
   if(oldBadgeElement) {
     buttonElement.removeChild(oldBadgeElement)
   }
@@ -92,20 +93,13 @@ function setNewButtonName(drinkId, name) {
     buttonElement.appendChild(newBadgeElement);
   }
 
-
-
-
-
-
-  // nameTag.innerHTML = name +  (selectedDrinks[name]?.count ? " (" + selectedDrinks[name].count + ")" : "");
 }
 
 function resetTotal() {
-  total = 0;
-  document.getElementById("total").innerHTML = `${total.toFixed(2)}€`;
-  selectedDrinks = {};
-  drinkHistory = [];
-  updateSelectedDrinks();
+  const historyLength = drinkHistory.length;
+  for(let i = 0; i < historyLength; i++) {
+    undoLastDrink();
+  }
 }
 
 function updateSelectedDrinks() {
