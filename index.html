@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Davidwache - Drink Calculator</title>
+  <title>Drink Calculator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -13,6 +13,9 @@
       max-width: 400px;
       margin: 0 auto;
       padding: 20px;
+      position: relative;
+      min-height: 100vh;
+      box-sizing: border-box;
     }
     h1 {
       text-align: center;
@@ -55,22 +58,37 @@
       text-align: center;
       color: #FF80AB;
     }
-    #undo, #reset {
+    .floating-button {
+      position: fixed;
+      bottom: 20px;
       background-color: #FF80AB;
       color: #1F1A1D;
-      width: 100%;
-      margin-top: 20px;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s;
     }
-    #undo i, #reset i {
-      margin-right: 10px;
+    .floating-button:hover {
+      transform: scale(1.1);
+    }
+    .floating-button:active {
+      transform: scale(0.9);
+    }
+    #undo {
+      left: 20px;
+    }
+    #reset {
+      right: 20px;
     }
     #selectedDrinks {
       margin-top: 20px;
       text-align: left;
       color: #FF80AB;
+      margin-bottom: 80px;
     }
     .drink-item {
       display: flex;
@@ -109,16 +127,14 @@
   
   <div id="total">0,00€</div>
   
-  <button id="undo" onclick="undoLastDrink()">
-    <i class="material-icons">undo</i>
-    Undo
-  </button>
-  <button id="reset" onclick="resetTotal()">
-    <i class="material-icons">refresh</i>
-    Reset
-  </button>
-
   <div id="selectedDrinks"></div>
+
+  <button id="undo" class="floating-button" onclick="undoLastDrink()">
+    <i class="material-icons">undo</i>
+  </button>
+  <button id="reset" class="floating-button" onclick="resetTotal()">
+    <i class="material-icons">refresh</i>
+  </button>
 
   <script>
     let total = 0;
