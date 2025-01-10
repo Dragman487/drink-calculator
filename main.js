@@ -119,6 +119,11 @@ function handleTouchMove(evt) {
     }
   } else {
     if (yDiff > 0) {
+
+        // If there are no selected drinks disable swipe up function.
+        if(!Object.entries(selectedDrinks).length) {
+            return;
+        }
       // IF  the button container is scroll able we disable the swipe up function
       if (btnContainer.scrollHeight > btnContainer.clientHeight) {
         return;
@@ -130,7 +135,7 @@ function handleTouchMove(evt) {
       // IF  the selectedDrinks container is scroll able we disable the swipe down function
       if (
         selectedDrinksContainer.scrollHeight >
-        selectedDrinksContainer.clientHeight
+        selectedDrinksContainer.clientHeight 
       ) {
         return;
       }
