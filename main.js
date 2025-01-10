@@ -43,32 +43,31 @@ function buildDrinkButtons() {
     }
 
 }
-function addDrink(drinkId, name, price) {
+function addDrink(id, name, price) {
   total += price;
   document.getElementById("total").innerHTML = `${total.toFixed(2)}€`;
 
-  if (selectedDrinks[name]) {
-    selectedDrinks[name].count++;
+  if (selectedDrinks[id]) {
+    selectedDrinks[id].amount++;
   } else {
-    selectedDrinks[name] = { count: 1, price: price };
+    selectedDrinks[id] = { amount: 1, price, id: id, name };
   }
 
-  setNewButtonName(drinkId, name);
+  setNewButtonName(id, name);
 
-  drinkHistory.push({id: drinkId, name, price });
+  drinkHistory.push({id: id, name, price });
   updateSelectedDrinks();
 }
 
 function undoLastDrink() {
   if (drinkHistory.length > 0) {
-    console.log("UNDO")
     const lastDrink = drinkHistory.pop();
     total -= lastDrink.price;
     document.getElementById("total").innerHTML = `${total.toFixed(2)}€`;
 
-    selectedDrinks[lastDrink.name].count--;
-    if (selectedDrinks[lastDrink.name].count === 0) {
-      delete selectedDrinks[lastDrink.name];
+    selectedDrinks[lastDrink.id].amount--;
+    if (selectedDrinks[lastDrink.id].amount === 0) {
+      delete selectedDrinks[lastDrink.id];
     }
 
     updateSelectedDrinks();
@@ -76,20 +75,19 @@ function undoLastDrink() {
   }
 }
 
-function setNewButtonName(drinkId, name) {
-  const buttonElement = document.getElementById(drinkId)
-  const oldBadgeElement = document.getElementById('badgeAmount' + drinkId)
+function setNewButtonName(id) {
+  const buttonElement = document.getElementById(id)
+  const oldBadgeElement = document.getElementById('badgeAmount' + id)
 
-  console.log(oldBadgeElement);
   if(oldBadgeElement) {
     buttonElement.removeChild(oldBadgeElement)
   }
 
-  if(selectedDrinks[name]?.count) {
+  if(selectedDrinks[id]?.amount) {
     const newBadgeElement= document.createElement("div")
     newBadgeElement.classList.add('badgeAmount')
-    newBadgeElement.id =  "badgeAmount" + drinkId
-    newBadgeElement.innerHTML = selectedDrinks[name].count
+    newBadgeElement.id =  "badgeAmount" + id
+    newBadgeElement.innerHTML = selectedDrinks[id].amount
     buttonElement.appendChild(newBadgeElement);
   }
 
@@ -102,28 +100,35 @@ function resetTotal() {
   }
 }
 
+
 function updateSelectedDrinks() {
   const selectedDrinksDiv = document.getElementById("selectedDrinks");
   selectedDrinksDiv.innerHTML = "";
 
-  const sortedDrinks = Object.entries(selectedDrinks).sort(
-    ([, a], [, b]) => b.count - a.count
-  );
 
-  for (const [name, { count, price }] of sortedDrinks) {
-    const drinkTotal = (count * price).toFixed(2);
+
+  for (const [name, { amount, price, id }] of  Object.entries(selectedDrinks)) {
+    const drinkTotal = (amount * price).toFixed(2);
     const drinkItem = document.createElement("div");
     drinkItem.classList.add("drink-item");
 
-    const drinkCount = document.createElement("span");
-    drinkCount.classList.add("drink-count");
-    drinkCount.textContent = count;
+    const drinkamount = document.createElement("span");
+    drinkamount.classList.add("drink-amount");
+    drinkamount.textContent = amount;
 
     const drinkInfo = document.createElement("span");
     drinkInfo.textContent = `${name}: ${drinkTotal}€`;
 
-    drinkItem.appendChild(drinkCount);
+    const reduceButton = document.createElement("i")
+    reduceButton.classList.add('reduce');
+    reduceButton.classList.add('material-icons');
+    reduceButton.addEventListener('click', () => {reduceDrink(id)})
+    reduceButton.innerHTML="remove";
+
+
+    drinkItem.appendChild(drinkamount);
     drinkItem.appendChild(drinkInfo);
+    drinkItem.appendChild(reduceButton);
     selectedDrinksDiv.appendChild(drinkItem);
   }
 
@@ -132,6 +137,15 @@ function updateSelectedDrinks() {
   } else {
     document.getElementById("openDrinksBtn").disabled = false;
   }
+}
+
+function reduceDrink(id) {
+  selectedDrinks[id].amount--
+  if(!selectedDrinks[id].amount) {
+    delete selectedDrinks[id];
+  }
+  setNewButtonName(id);
+  updateSelectedDrinks();
 }
 
 function openDrinks() {

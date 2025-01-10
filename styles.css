@@ -36,7 +36,6 @@ body {
   }
 
   button {
-    
     position: relative;
     font-size: 16px;
     margin: 10px;
@@ -127,7 +126,7 @@ body {
     top: 100%;
     left: 0;
     width: 100%;
-    height: calc(100% - 60px);
+    height: calc(100% - 50px);
     background-color: var(--secondary);
     transition: top 0.3s;
     padding: 20px;
@@ -136,7 +135,7 @@ body {
   }
 
   #selectedDrinksContainer.open {
-    top: 60px;
+    top: 50px;
   }
 
   #closeDrinksBtn {
@@ -169,7 +168,7 @@ width: fit-content;
     margin-bottom: 10px;
   }
 
-  .drink-count {
+  .drink-amount {
     background-color: var(--primary);
     color: var(--texty);
     font-weight: bold;
