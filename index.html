@@ -1,44 +1,93 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Davidwache - Drink Calculator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div id="total">0,00€</div>
-  <div class="button-container">
-    <button onclick="addDrink('Long Island', 6.5)">Long Island<br>6,50€</button>
-    <button onclick="addDrink('Long Drink', 7)">Long Drink<br>7,00€</button>
-    <button onclick="addDrink('Cuba Libre', 7.5)">Cuba Libre<br>7,50€</button>
-    <button onclick="addDrink('Hausschnaps', 1.5)">Hausschnaps<br>1,50€</button>
-    <button onclick="addDrink('Mexikaner', 2)">Mexikaner<br>2,00€</button>
-    <button onclick="addDrink('Sourz', 2.5)">Sourz<br>2,50€</button>
-    <button onclick="addDrink('Tequilla', 2.9)">Tequilla<br>2,90€</button>
-    <button onclick="addDrink('kl. Bier', 3.6)">kl. Bier<br>3,60€</button>
-    <button onclick="addDrink('gr. Bier', 5.6)">gr. Bier<br>5,60€</button>
-    <button onclick="addDrink('kl. Corona', 4.2)">kl. Corona<br>4,20€</button>
-    <button onclick="addDrink('gr. Corona', 6)">gr. Corona<br>6€</button>
-    <button onclick="addDrink('Rakete', 4.1)">Rakete<br>4,10€</button>
+  <head>
+    <title>Davidwache - Drink Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="total">0,00€</div>
 
-  </div>
-  
-  <button id="undo" class="floating-button" onclick="undoLastDrink()">
-    <i class="material-icons">undo</i>
-  </button>
-  <button id="reset" class="floating-button" onclick="resetTotal()">
-    <i class="material-icons">refresh</i>
-  </button>
+    <div class="button-container" id="buttonContainer">
+      <button onclick="addDrink('Long Island', 6.5)">
+        <p>Long Island</p>
+        <p>6,50€</p>
+      </button>
+      <button onclick="addDrink('Long Drink', 7)">
+        <p>Long Drink</p>
+        <p>7,00€</p>
+      </button>
+      <button onclick="addDrink('Cuba Libre', 7.5)">
+        <p>Cuba Libre</p>
+        <p>7,50€</p>
+      </button>
+      <button onclick="addDrink('Hausschnaps', 1.5)">
+        <p>Hausschnaps</p>
+        <p>1,50€</p>
+      </button>
+      <button onclick="addDrink('Mexikaner', 2)">
+        <p>Mexikaner</p>
+        <p>2,00€</p>
+      </button>
+      <button onclick="addDrink('Sourz', 2.5)">
+        <p>Sourz</p>
+        <p>2,50€</p>
+      </button>
+      <button onclick="addDrink('Tequilla', 2.9)">
+        <p>Tequilla</p>
+        <p>2,90€</p>
+      </button>
+      <button onclick="addDrink('kl. Bier', 3.6)">
+        <p>kl. Bier</p>
+        <p>3,60€</p>
+      </button>
+      <button onclick="addDrink('gr. Bier', 5.6)">
+        <p>gr. Bier</p>
+        <p>5,60€</p>
+      </button>
+      <button onclick="addDrink('kl. Corona', 4.2)">
+        <p>kl. Corona</p>
+        <p>4,20€</p>
+      </button>
+      <button onclick="addDrink('gr. Corona', 6)">
+        <p>gr. Corona</p>
+        <p>6€</p>
+      </button>
+      <button onclick="addDrink('Rakete', 4.1)">
+        <p>Rakete</p>
+        <p>4,10€</p>
+      </button>
+    </div>
 
-  <button id="openDrinksBtn" onclick="openDrinks()">Übersicht</button>
+    <div class="action-buttons">
+      <button id="undo" class="floating-button" onclick="undoLastDrink()">
+        <i class="material-icons">undo</i>
+      </button>
+        
+      <button id="openDrinksBtn" onclick="openDrinks()">Übersicht</button>
 
-  <div id="selectedDrinksContainer">
-     <i id="closeDrinksBtn" onclick="closeDrinks()" class="material-icons">close</i>
-    <div id="selectedDrinks"></div>
-  </div>
+      <button id="reset" class="floating-button" onclick="resetTotal()">
+        <i class="material-icons">refresh</i>
+      </button>
 
-  <script src="main.js"></script>
-</body>
+    </div>
+
+
+    <div id="selectedDrinksContainer">
+      <i id="closeDrinksBtn" onclick="closeDrinks()" class="material-icons"
+        >close</i
+      >
+      <div id="selectedDrinks"></div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
 </html>

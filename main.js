@@ -1,6 +1,8 @@
 let total = 0;
 let selectedDrinks = {};
 let drinkHistory = [];
+const btnContainer = document.getElementById("buttonContainer");
+const selectedDrinksContainer = document.getElementById("selectedDrinks");
 
 document.getElementById("openDrinksBtn").disabled = true;
 function addDrink(name, price) {
@@ -65,13 +67,12 @@ function updateSelectedDrinks() {
     selectedDrinksDiv.appendChild(drinkItem);
   }
 
-  if(!Object.entries(selectedDrinks).length) {
-    console.log("DISABLED")
+  if (!Object.entries(selectedDrinks).length) {
+    console.log("DISABLED");
     document.getElementById("openDrinksBtn").disabled = true;
-}else {
-    console.log("ENABLE")
-      document.getElementById("openDrinksBtn").disabled = false;
-
+  } else {
+    console.log("ENABLE");
+    document.getElementById("openDrinksBtn").disabled = false;
   }
 }
 
@@ -118,11 +119,23 @@ function handleTouchMove(evt) {
     }
   } else {
     if (yDiff > 0) {
+      // IF  the button container is scroll able we disable the swipe up function
+      if (btnContainer.scrollHeight > btnContainer.clientHeight) {
+        return;
+      }
+
       /* up swipe */
       openDrinks();
     } else {
+      // IF  the selectedDrinks container is scroll able we disable the swipe down function
+      if (
+        selectedDrinksContainer.scrollHeight >
+        selectedDrinksContainer.clientHeight
+      ) {
+        return;
+      }
       /* down swipe */
-      // closeDrinks();
+      closeDrinks();
     }
   }
 
