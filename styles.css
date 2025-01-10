@@ -11,7 +11,7 @@ body {
     margin: 0;
     padding: 0;
     position: relative;
-    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     padding: 20px;
   }
