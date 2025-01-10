@@ -1,6 +1,7 @@
 let total = 0;
 let selectedDrinks = {};
 let drinkHistory = [];
+
 const btnContainer = document.getElementById("buttonContainer");
 const selectedDrinksContainer = document.getElementById("selectedDrinks");
 
@@ -55,21 +56,33 @@ function addDrink(id, name, price) {
 
   setNewButtonName(id, name);
 
-  drinkHistory.push({id: id, name, price });
+  drinkHistory.push({id, name, price, type: "ADDED" });
   updateSelectedDrinks();
 }
 
 function undoLastDrink() {
   if (drinkHistory.length > 0) {
     const lastDrink = drinkHistory.pop();
-    total -= lastDrink.price;
-    document.getElementById("total").innerHTML = `${total.toFixed(2)}€`;
 
-    selectedDrinks[lastDrink.id].amount--;
-    if (selectedDrinks[lastDrink.id].amount === 0) {
-      delete selectedDrinks[lastDrink.id];
+    if(lastDrink.type === "ADDED") {
+      total -= lastDrink.price;
+      selectedDrinks[lastDrink.id].amount--;
+
+      if (selectedDrinks[lastDrink.id].amount === 0) {
+        delete selectedDrinks[lastDrink.id];
+      }
+    }else {
+
+      if(!selectedDrinks[lastDrink.id]){
+        selectedDrinks[lastDrink.id] = { amount: 1, price: lastDrink.price, id:lastDrink.id, name: lastDrink.name }
+      }else {
+        selectedDrinks[lastDrink.id].amount++;
+      }
+
+      total += lastDrink.price;
     }
 
+    document.getElementById("total").innerHTML = `${total.toFixed(2)}€`;
     updateSelectedDrinks();
     setNewButtonName(lastDrink.id, lastDrink.name);
   }
@@ -123,7 +136,7 @@ function updateSelectedDrinks() {
     const reduceButton = document.createElement("i")
     reduceButton.classList.add('reduce');
     reduceButton.classList.add('material-icons');
-    reduceButton.addEventListener('click', () => {reduceDrink(id)})
+    reduceButton.addEventListener('click', () => {reduceDrink(id, name, price)})
     reduceButton.innerHTML="remove";
 
 
@@ -140,11 +153,13 @@ function updateSelectedDrinks() {
   }
 }
 
-function reduceDrink(id) {
+function reduceDrink(id, name, price) {
   selectedDrinks[id].amount--
   if(!selectedDrinks[id].amount) {
     delete selectedDrinks[id];
   }
+
+  drinkHistory.push({id, name, price, type: "REDUCED" });
   setNewButtonName(id);
   updateSelectedDrinks();
 }
