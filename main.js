@@ -50,7 +50,7 @@ function addDrink(id, name, price) {
   if (selectedDrinks[id]) {
     selectedDrinks[id].amount++;
   } else {
-    selectedDrinks[id] = { amount: 1, price, id: id, name };
+    selectedDrinks[id] = { amount: 1, price, id, name };
   }
 
   setNewButtonName(id, name);
@@ -106,8 +106,9 @@ function updateSelectedDrinks() {
   selectedDrinksDiv.innerHTML = "";
 
 
+  console.log(selectedDrinks);
 
-  for (const [name, { amount, price, id }] of  Object.entries(selectedDrinks)) {
+  for (const [id, {name, amount, price }] of  Object.entries(selectedDrinks)) {
     const drinkTotal = (amount * price).toFixed(2);
     const drinkItem = document.createElement("div");
     drinkItem.classList.add("drink-item");
