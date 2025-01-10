@@ -77,8 +77,27 @@ function undoLastDrink() {
 
 function setNewButtonName(drinkId, name) {
   console.log("DRINK ID", drinkId);
-  const nameTag = document.getElementById(drinkId).getElementsByClassName("name")[0]
-  nameTag.innerHTML = name +  (selectedDrinks[name]?.count ? " (" + selectedDrinks[name].count + ")" : "");
+  const buttonElement = document.getElementById(drinkId)
+  const oldBadgeElement = document.getElementById('badgeAmount' + "drinkId")
+
+  if(oldBadgeElement) {
+    buttonElement.removeChild(oldBadgeElement)
+  }
+
+  if(selectedDrinks[name]?.count) {
+    const newBadgeElement= document.createElement("div")
+    newBadgeElement.classList.add('badgeAmount')
+    newBadgeElement.id =  "badgeAmount" + drinkId
+    newBadgeElement.innerHTML = selectedDrinks[name].count
+    buttonElement.appendChild(newBadgeElement);
+  }
+
+
+
+
+
+
+  // nameTag.innerHTML = name +  (selectedDrinks[name]?.count ? " (" + selectedDrinks[name].count + ")" : "");
 }
 
 function resetTotal() {

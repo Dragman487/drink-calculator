@@ -1,3 +1,11 @@
+:root {
+  --background: #121212;
+  --primary: #1F6FEB;
+  --secondary: #374151;
+  --accent: #10B981;
+  --text: #E5E7EB;
+}
+
 body {
 
     box-sizing: border-box;
@@ -6,8 +14,8 @@ body {
     grid-template-columns: 1fr;
     grid-template-rows: 25px auto 60px;
     font-family: 'Roboto', sans-serif;
-    background-color: #25161b;
-    color: #f3cba5;
+    background-color: var(--background);
+    color: var(--text);
     margin: 0;
     padding: 0;
     position: relative;
@@ -28,15 +36,17 @@ body {
   }
 
   button {
+    
+    position: relative;
     font-size: 16px;
     margin: 10px;
     padding: 6px;
     width: calc(50% - 20px);
-    background-color: #453953;
-    color: #f3cba5;
-    border: 2px solid #975a5e;
+    background-color: var(--secondary);
+    color: var(--texty);
+    border: 2px solid var(--primary);
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px var(--secondary);
     transition: background-color 0.3s, transform 0.3s;
     font-weight: 500;
     text-transform: uppercase;
@@ -52,7 +62,7 @@ body {
   }
 
   button:hover {
-    background-color: #975a5e;
+    background-color: var(--primary);
     transform: scale(1.05);
   }
 
@@ -65,7 +75,7 @@ body {
     align-self: flex-end;
     text-align: right;
     font-size: 18px;
-    color: #f3cba5;
+    color: var(-text);
   }
 
   .action-buttons {
@@ -75,8 +85,8 @@ body {
 
   .floating-button {
     margin: 0;
-    background-color: #975a5e;
-    color: #25161b;
+    background-color: var(--secondary);
+    color: var(--text);
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -96,8 +106,8 @@ body {
 
   #openDrinksBtn {
     width: fit-content;
-    background-color: #975a5e;
-    color: #25161b;
+    background-color: var(--primary);
+    color: var(--text);
     border: none;
     border-radius: 20px;
     padding: 10px 20px;
@@ -118,7 +128,7 @@ body {
     left: 0;
     width: 100%;
     height: calc(100% - 60px);
-    background-color: #453953;
+    background-color: var(--secondary);
     transition: top 0.3s;
     padding: 20px;
     box-sizing: border-box;
@@ -135,7 +145,7 @@ body {
     right: 10px;
     background: none;
     border: none;
-    color: #f3cba5;
+    color: var(--texty);
     font-size: 24px;
     cursor: pointer;
 width: fit-content;  
@@ -144,7 +154,7 @@ width: fit-content;
     margin-top: 40px;
     margin-bottom: 20px;
     text-align: left;
-    color: #f3cba5;
+    color: var(--texty);
     height: calc(100% - 60px);
     overflow-y: auto;
   }
@@ -153,16 +163,27 @@ width: fit-content;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #25161b;
+    background-color: var(--background);
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
   }
+
   .drink-count {
-    background-color: #975a5e;
-    color: #f3cba5;
+    background-color: var(--primary);
+    color: var(--texty);
     font-weight: bold;
     padding: 5px 10px;
     border-radius: 50%;
     margin-right: 10px;
+  }
+
+  .badgeAmount {
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    background-color: var(--accent);
   }
