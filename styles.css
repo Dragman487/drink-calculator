@@ -4,7 +4,18 @@
   --secondary: #374151;
   --accent: #10B981;
   --text: #E5E7EB;
+  
+  --normal-font-size: 24px;
+  --title-font-size: 30px;
 }
+
+@media only screen and (max-width: 600px) {
+  :root {
+    --normal-font-size: 16px;
+    --title-font-size: 24px;
+  }   
+}
+
 
 body {
 
@@ -12,7 +23,7 @@ body {
     display: grid;
     gap: 8px;
     grid-template-columns: 1fr;
-    grid-template-rows: 25px auto 60px;
+    grid-template-rows: 45px auto 80px;
     font-family: 'Roboto', sans-serif;
     background-color: var(--background);
     color: var(--text);
@@ -21,10 +32,11 @@ body {
     position: relative;
     height: 100dvh;
     overflow: hidden;
-    padding: 20px;
+
   }
 
   .button-container {
+    padding: 0 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -37,10 +49,11 @@ body {
 
   button {
     position: relative;
-    font-size: 16px;
+    font-size: var(--normal-font-size);
     margin: 10px;
     padding: 6px;
     width: calc(50% - 20px);
+    max-width: 250px;
     background-color: var(--secondary);
     color: var(--texty);
     border: 2px solid var(--primary);
@@ -62,7 +75,7 @@ body {
 
   button:hover {
     background-color: var(--primary);
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 
   button:active {
@@ -71,13 +84,15 @@ body {
   }
 
   #total {
+    padding: 20px 20px 0 20px;
     align-self: flex-end;
     text-align: right;
-    font-size: 18px;
+    font-size: var(--normal-font-size);
     color: var(-text);
   }
 
   .action-buttons {
+    padding: 0 20px 20px 20px;
     display: flex;
     justify-content: space-between;
   }
@@ -110,7 +125,7 @@ body {
     border: none;
     border-radius: 20px;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: var(--normal-font-size);
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -145,7 +160,7 @@ body {
     background: none;
     border: none;
     color: var(--texty);
-    font-size: 24px;
+    font-size: var(--title-font-size);
     cursor: pointer;
 width: fit-content;  
 }

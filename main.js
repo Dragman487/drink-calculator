@@ -117,7 +117,7 @@ function updateSelectedDrinks() {
 
   total = 0;
   for (const [id, {name, amount, price }] of  Object.entries(selectedDrinks)) {
-    total += price;
+    total += price * amount;
     const drinkTotal = (amount * price).toFixed(2);
     const drinkItem = document.createElement("div");
     drinkItem.classList.add("drink-item");
