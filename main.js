@@ -45,8 +45,7 @@ function buildDrinkButtons() {
 
 }
 function addDrink(id, name, price) {
-  total += price;
-  document.getElementById("total").innerHTML = `${total.toFixed(2)}€`;
+
 
   if (selectedDrinks[id]) {
     selectedDrinks[id].amount++;
@@ -65,7 +64,6 @@ function undoLastDrink() {
     const lastDrink = drinkHistory.pop();
 
     if(lastDrink.type === "ADDED") {
-      total -= lastDrink.price;
       selectedDrinks[lastDrink.id].amount--;
 
       if (selectedDrinks[lastDrink.id].amount === 0) {
@@ -79,10 +77,8 @@ function undoLastDrink() {
         selectedDrinks[lastDrink.id].amount++;
       }
 
-      total += lastDrink.price;
     }
 
-    document.getElementById("total").innerHTML = `${total.toFixed(2)}€`;
     updateSelectedDrinks();
     setNewButtonName(lastDrink.id, lastDrink.name);
   }
@@ -119,9 +115,9 @@ function updateSelectedDrinks() {
   selectedDrinksDiv.innerHTML = "";
 
 
-  console.log(selectedDrinks);
-
+  total = 0;
   for (const [id, {name, amount, price }] of  Object.entries(selectedDrinks)) {
+    total += price;
     const drinkTotal = (amount * price).toFixed(2);
     const drinkItem = document.createElement("div");
     drinkItem.classList.add("drink-item");
@@ -146,6 +142,8 @@ function updateSelectedDrinks() {
     selectedDrinksDiv.appendChild(drinkItem);
   }
 
+  document.getElementById("total").innerHTML = `${total.toFixed(2)}€`;
+
   if (!Object.entries(selectedDrinks).length) {
     document.getElementById("openDrinksBtn").disabled = true;
   } else {
@@ -155,6 +153,7 @@ function updateSelectedDrinks() {
 
 function reduceDrink(id, name, price) {
   selectedDrinks[id].amount--
+
   if(!selectedDrinks[id].amount) {
     delete selectedDrinks[id];
   }
