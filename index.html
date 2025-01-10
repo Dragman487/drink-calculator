@@ -1,42 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Drink Calculator</title>
+  <title>Davidwache - Drink Calculator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
     body {
       font-family: 'Roboto', sans-serif;
-      background-color: #0F0E0E;
-      color: #FFFFFF;
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
+      background-color: #25161b;
+      color: #f3cba5;
+      margin: 0;
+      padding: 0;
       position: relative;
-      min-height: 100vh;
-      box-sizing: border-box;
-    }
-    h1 {
-      text-align: center;
-      font-size: 32px;
-      margin-bottom: 20px;
-      font-weight: 700;
-      color: #FF4081;
+      height: 100vh;
+      overflow: hidden;
     }
     .button-container {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: flex-start;
+      align-items: flex-start;
+      height: 100%;
+      padding: 20px;
+      box-sizing: border-box;
     }
     button {
       font-size: 16px;
       margin: 10px;
       padding: 15px;
       width: calc(50% - 20px);
-      background-color: #1F1A1D;
-      color: #FFFFFF;
-      border: 2px solid #FF4081;
+      background-color: #453953;
+      color: #f3cba5;
+      border: 2px solid #975a5e;
       border-radius: 10px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       transition: background-color 0.3s, transform 0.3s;
@@ -44,7 +40,7 @@
       text-transform: uppercase;
     }
     button:hover {
-      background-color: #FF4081;
+      background-color: #975a5e;
       transform: scale(1.05);
     }
     button:active {
@@ -52,17 +48,17 @@
       transform: scale(0.95);
     }
     #total {
-      font-size: 48px;
-      font-weight: 700;
-      margin-top: 30px;
-      text-align: center;
-      color: #FF80AB;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 18px;
+      color: #f3cba5;
     }
     .floating-button {
       position: fixed;
       bottom: 20px;
-      background-color: #FF80AB;
-      color: #1F1A1D;
+      background-color: #975a5e;
+      color: #25161b;
       border-radius: 50%;
       width: 60px;
       height: 60px;
@@ -84,24 +80,63 @@
     #reset {
       right: 20px;
     }
+    #openDrinksBtn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #975a5e;
+      color: #25161b;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    #selectedDrinksContainer {
+      position: fixed;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 60px);
+      background-color: #453953;
+      transition: top 0.3s;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    #selectedDrinksContainer.open {
+      top: 60px;
+    }
+    #closeDrinksBtn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: #f3cba5;
+      font-size: 24px;
+      cursor: pointer;
+    }
     #selectedDrinks {
-      margin-top: 20px;
+      margin-top: 40px;
       text-align: left;
-      color: #FF80AB;
-      margin-bottom: 80px;
+      color: #f3cba5;
     }
     .drink-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: #1F1A1D;
+      background-color: #25161b;
       padding: 10px;
       border-radius: 5px;
       margin-bottom: 10px;
     }
     .drink-count {
-      background-color: #FF4081;
-      color: #FFFFFF;
+      background-color: #975a5e;
+      color: #f3cba5;
       font-weight: bold;
       padding: 5px 10px;
       border-radius: 50%;
@@ -110,31 +145,37 @@
   </style>
 </head>
 <body>
-  <h1>Davidwache</h1>
+  <div id="total">0,00€</div>
   <div class="button-container">
-    <button onclick="addDrink('Berliner Luft', 2)">Berliner Luft<br>2€</button>
     <button onclick="addDrink('Long Island', 6.5)">Long Island<br>6,50€</button>
-    <button onclick="addDrink('Long Drinks', 7)">Long Drinks<br>7€</button>
+    <button onclick="addDrink('Long Drink', 7)">Long Drink<br>7,00€</button>
+    <button onclick="addDrink('Cuba Libre', 7.5)">Cuba Libre<br>7,50€</button>
     <button onclick="addDrink('Hausschnaps', 1.5)">Hausschnaps<br>1,50€</button>
-    <button onclick="addDrink('Sourz', 2)">Sourz<br>2€</button>
-    <button onclick="addDrink('Tequila', 2.9)">Tequila<br>2,90€</button>
-    <button onclick="addDrink('Kleines Bier', 3.6)">Kleines Bier<br>3,60€</button>
-    <button onclick="addDrink('Großes Bier', 5.6)">Großes Bier<br>5,60€</button>
-    <button onclick="addDrink('Kleines Corona', 4.2)">Kleines Corona<br>4,20€</button>
-    <button onclick="addDrink('Großes Corona', 6)">Großes Corona<br>6€</button>
+    <button onclick="addDrink('Mexikaner', 2)">Mexikaner<br>2,00€</button>
+    <button onclick="addDrink('Sourz', 2.5)">Sourz<br>2,50€</button>
+    <button onclick="addDrink('Tequilla', 2.9)">Tequilla<br>2,90€</button>
+    <button onclick="addDrink('kl. Bier', 3.6)">kl. Bier<br>3,60€</button>
+    <button onclick="addDrink('gr. Bier', 5.6)">gr. Bier<br>5,60€</button>
+    <button onclick="addDrink('kl. Corona', 4.2)">kl. Corona<br>4,20€</button>
+    <button onclick="addDrink('gr. Corona', 6)">gr. Corona<br>6€</button>
     <button onclick="addDrink('Rakete', 4.1)">Rakete<br>4,10€</button>
   </div>
   
-  <div id="total">0,00€</div>
-  
-  <div id="selectedDrinks"></div>
-
   <button id="undo" class="floating-button" onclick="undoLastDrink()">
     <i class="material-icons">undo</i>
   </button>
   <button id="reset" class="floating-button" onclick="resetTotal()">
     <i class="material-icons">refresh</i>
   </button>
+
+  <button id="openDrinksBtn" onclick="openDrinks()">Getränkeübersicht</button>
+
+  <div id="selectedDrinksContainer">
+    <button id="closeDrinksBtn" onclick="closeDrinks()">
+      <i class="material-icons">close</i>
+    </button>
+    <div id="selectedDrinks"></div>
+  </div>
 
   <script>
     let total = 0;
@@ -200,6 +241,61 @@
         drinkItem.appendChild(drinkInfo);
         selectedDrinksDiv.appendChild(drinkItem);
       }
+    }
+
+    function openDrinks() {
+      document.getElementById('selectedDrinksContainer').classList.add('open');
+    }
+
+    function closeDrinks() {
+      document.getElementById('selectedDrinksContainer').classList.remove('open');
+    }
+
+    document.addEventListener('touchstart', handleTouchStart, false);
+    document.addEventListener('touchmove', handleTouchMove, false);
+
+    let xDown = null;
+    let yDown = null;
+
+    function getTouches(evt) {
+      return evt.touches || evt.originalEvent.touches;
+    }
+
+    function handleTouchStart(evt) {
+      const firstTouch = getTouches(evt)[0];
+      xDown = firstTouch.clientX;
+      yDown = firstTouch.clientY;
+    }
+
+    function handleTouchMove(evt) {
+      if (!xDown || !yDown) {
+        return;
+      }
+
+      const xUp = evt.touches[0].clientX;
+      const yUp = evt.touches[0].clientY;
+
+      const xDiff = xDown - xUp;
+      const yDiff = yDown - yUp;
+
+      if (Math.abs(xDiff) > Math.abs(yDiff)) {
+        if (xDiff > 0) {
+          /* left swipe */
+        } else {
+          /* right swipe */
+        }
+      } else {
+        if (yDiff > 0) {
+          /* up swipe */
+          openDrinks();
+        } else {
+          /* down swipe */
+          closeDrinks();
+        }
+      }
+
+      xDown = null;
+      yDown = null;
     }
   </script>
 </body>
